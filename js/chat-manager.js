@@ -2,11 +2,41 @@ class ChatManager {
     constructor() {
         this.currentObjectId = null;
         this.isTyping = false;
+        this.ttsEnabled = true;
+        this.synth = window.speechSynthesis;
+        this.currentUtterance = null;
     }
     
     setCurrentChat(objectId) {
         this.currentObjectId = objectId;
         this.loadMessages();
+    }
+    
+    speakText(text, lang = 'zh-CN') {
+        if (!this.ttsEnabled || !this.synth) return;
+        
+        this.stopSpeaking();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        
+        const voices = this.synth.getVoices();
+        const chineseVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('CN'));
+        if (chineseVoice) {
+            utterance.voice = chineseVoice;
+        }
+        
+        this.currentUtterance = utterance;
+        this.synth.speak(utterance);
+    }
+    
+    stopSpeaking() {
+        if (this.synth) {
+            this.synth.cancel();
+        }
     }
     
     loadMessages() {
@@ -50,10 +80,12 @@ class ChatManager {
             `;
         } else {
             let messagesHtml = '';
+            let voiceTexts = [];
             
             if (message.messages && Array.isArray(message.messages)) {
                 message.messages.forEach((msgItem, idx) => {
                     const delay = idx * 300;
+                    voiceTexts.push(msgItem.voice);
                     messagesHtml += `
                         <div class="scene-card" style="animation-delay: ${delay}ms;">
                             <p>${this.escapeHtml(msgItem.action)}</p>
@@ -64,6 +96,7 @@ class ChatManager {
                     `;
                 });
             } else if (message.voice) {
+                voiceTexts.push(message.voice);
                 messagesHtml = `
                     <div class="scene-card">
                         <p>${this.escapeHtml(message.action)}</p>
@@ -81,6 +114,16 @@ class ChatManager {
                     <p class="message-time">${this.formatTime(message.timestamp)}</p>
                 </div>
             `;
+            
+            if (voiceTexts.length > 0) {
+                setTimeout(() => {
+                    voiceTexts.forEach((text, i) => {
+                        setTimeout(() => {
+                            this.speakText(text);
+                        }, i * 1500);
+                    });
+                }, 300);
+            }
         }
         
         container.appendChild(messageEl);
