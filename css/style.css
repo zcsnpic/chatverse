@@ -16,24 +16,26 @@
 
 body {
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, var(--midnight) 0%, var(--deep-purple) 100%);
+    background: var(--deep-purple);
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .app-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    min-height: 100vh;
+    width: 100%;
 }
 
 .phone-frame {
     width: 100%;
     max-width: 430px;
-    height: 800px;
+    min-height: 100vh;
     background: var(--deep-purple);
     border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 60px rgba(74, 78, 143, 0.3);
     position: relative;
 }
 
@@ -320,14 +322,18 @@ body {
 }
 
 /* 聊天页面 */
-.chat-header {
+.chat-header-fixed {
     display: flex;
     align-items: center;
     gap: 12px;
-    position: sticky;
+    position: absolute;
     top: 0;
-    z-index: 5;
-    background: linear-gradient(135deg, var(--cosmic-blue) 0%, var(--deep-purple) 100%);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 16px 20px;
+    background: var(--deep-purple);
+    border-bottom: 1px solid rgba(164, 144, 194, 0.2);
 }
 
 .back-btn, .menu-btn {
@@ -342,6 +348,7 @@ body {
     justify-content: center;
     color: var(--silver);
     transition: background 0.2s;
+    flex-shrink: 0;
 }
 
 .back-btn:hover, .menu-btn:hover {
@@ -370,8 +377,7 @@ body {
 .message-container {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
-    padding-bottom: 90px;
+    padding: 80px 16px 100px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -502,9 +508,8 @@ body {
 
 .input-area {
     padding: 16px;
-    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    background: rgba(43, 30, 62, 0.95);
-    backdrop-filter: blur(10px);
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 20px));
+    background: var(--deep-purple);
     border-top: 1px solid rgba(164, 144, 194, 0.2);
     display: flex;
     align-items: center;

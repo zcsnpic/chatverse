@@ -75,28 +75,26 @@
             
             <!-- 聊天页 -->
             <div id="page-chat" class="page page-chat hidden">
-                <div class="page-header gradient-bg">
-                    <div class="chat-header">
-                        <button class="back-btn" onclick="App.navigateTo('home')">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M15 18l-6-6 6-6"></path>
-                            </svg>
-                        </button>
-                        <div class="chat-info">
-                            <div id="chat-avatar" class="avatar-small"></div>
-                            <div class="chat-meta">
-                                <h2 id="chat-name">聊天对象</h2>
-                                <p id="chat-scene" class="scene-label">场景: 咖啡馆</p>
-                            </div>
+                <div class="chat-header-fixed">
+                    <button class="back-btn" onclick="App.navigateTo('home')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="chat-info">
+                        <div id="chat-avatar" class="avatar-small"></div>
+                        <div class="chat-meta">
+                            <h2 id="chat-name">聊天对象</h2>
+                            <p id="chat-scene" class="scene-label">场景: 咖啡馆</p>
                         </div>
-                        <button class="menu-btn" onclick="App.toggleMemoryDrawer()">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <line x1="3" y1="12" x2="21" y2="12"></line>
-                                <line x1="3" y1="18" x2="21" y2="18"></line>
-                            </svg>
-                        </button>
                     </div>
+                    <button class="menu-btn" onclick="App.toggleMemoryDrawer()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
                 </div>
                 
                 <div id="message-container" class="message-container scrollbar-hide">
